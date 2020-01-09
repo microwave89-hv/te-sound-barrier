@@ -21,16 +21,17 @@ BITS 64
 
 EFI_TE_IMAGE_HEADER_SIGNATURE 		equ 0x5A56    				; 'VZ' 			  ; Magic for Terse Executables
 IMAGE_FILE_MACHINE_AMD64		equ 0x8664
-IMAGE_SUBSYSTEM_EFI_APPLICATION		equ 0xa
+IMAGE_SUBSYSTEM_EFI_APPLICATION		equ 0xa					; EFI app
 EfiResetShutdown			equ 2					; In C this would be of type long
-
+size_of_te_hdr				equ 0x28				; Inofficial...
 
 Signature: 				dw EFI_TE_IMAGE_HEADER_SIGNATURE 	; 56 5A
 Machine: 				dw IMAGE_FILE_MACHINE_AMD64 		; 64 86
-NumberOfSections: 			db 1 					; 01
+NumberOfSections: 			db 0 					; 00			  ; Don't interpret a section header any longer, this permits one finally
+													  ; to put code in all of the fields of the former section header.
 Subsystem: 				db IMAGE_SUBSYSTEM_EFI_APPLICATION 	; 0A
 StrippedSize: 				dw 0 					; 00 00 		  ; Not needed ==> EntryPoint = AddressOfEntryPoint + sizeof(EFI_TE_IMAGE_HEADER);
-AddressOfEntryPoint: 			dd (efi_miau - SectionHeader1_Name)	; 18 00 00 00 		  ; EntryPoint is "efi_miau"
+AddressOfEntryPoint: 			dd (efi_miau - size_of_te_hdr)		; 00 		  	  ; EntryPoint is "efi_miau"
 BaseOfCode:
 	push 0 									; 6A 00			  ; unsigned long long var4 = 0;
 	jmp DataDirectory0_Va 							; EB 08 		  ; Skip non-executable ImageBase
@@ -40,26 +41,19 @@ DataDirectory0_Va:
 	push 0 									; 6A 00			  ; unsigned long long var3 = 0;
 	jmp DataDirectory1_Va 							; EB 04
 
-DataDirectory0_Size: 			dd 0 					; 00 00 00 00 		  ; If directory size is 0 it appears that the VA allows for arbitrary values.
+DataDirectory0_Size: 			dd 0 					; 00 00 00 00 		  ; If directory sizes are 0 it appears that the VA's allow for arbitrary values.
 DataDirectory1_Va:
 	push 0 									; 6A 00			  ; unsigned long long var2 = 0;
-	jmp SectionHeader1_Name 						; EB 04
+	jmp goAhead								; EB 06 		  ; Skip needed fields and the init jmp
 
 DataDirectory1_Size: 			dd 0 					; 00 00 00 00
-SectionHeader1_Name:
+
+efi_miau:									; EntryPoint
+	jmp BaseOfCode 								; EB E2 		  ; Go to very first usable byte, whose address is lower than anything
+													  ; AddressOfEntryPoint would allow for.
+goAhead:
 	push EfiResetShutdown 							; 6A 02 		  ; unsigned long long var1 = (unsigned long long)EfiResetShutdown;
 	mov rax, [rdx + 0x58] 							; 48 8B 42 58 		  ; EFI_RUNTIME_SERVICES* pRuntimeServices = pEfiSystemTable->pRuntimeServices;
-	jmp goAhead								; EB 12 		  ; Skip needed fields
-
-SectionHeader1_VirtualSize: 		dd 0xb 					; 0B 00 00 00
-SectionHeader1_VirtualAddress: 		dd 0xffffffff 				; FF FF FF FF		  ; (Altering this seemed to be unstable)
-SectionHeader1_SizeOfRawData: 		dd 0xb 					; 0B 00 00 00
-SectionHeader1_PointerToRawData: 	dd 0xffffffff 				; FF FF FF FF		  ; (Altering this seemed to be unstable)
-efi_miau:									; EntryPoint
-	jmp BaseOfCode 								; EB CA 		  ; Go to very first usable byte, whose address is lower than anything
-													  ; AddressOfEntryPoint would allow for.
-
-goAhead:
 	pop rcx 								; 59 			  ; Retrieve the values which have been stored on the stack 
 	pop rdx 								; 5A 			  ; Pushing imm8 and following up by popping target registers requires less	
 	pop r8 									; 41 58 		  ; machine code than xoring 3 registers and pre-loading one with imm8.
@@ -70,4 +64,5 @@ goAhead:
 	jmp [rax + 0x68]							; FF 60 68 		  ; pRuntimeServices->fpResetSystem(var1, var2, var3, var4);
 
 
-; 56 5A 64 86 01 0A 00 00 18 00 00 00 6A 00 EB 08 00 10 00 00 00 00 00 00 6A 00 EB 04 00 00 00 00 6A 00 EB 04 00 00 00 00 6A 02 48 8B 42 58 EB 12 0B 00 00 00 FF FF FF FF 0B 00 00 00 FF FF FF FF EB CA 59 5A 41 58 41 59 FF 60 68
+; 56 5A 64 86 00 0A 00 00 00 00 00 00 6A 00 EB 08 00 10 00 00 00 00 00 00 6A 00 EB 04 00 00 00 00 6A 00 EB 06 00 00 00 00 EB E2 6A 02 48 8B 42 58 59 5A 41 58 41 59 FF 60 68
+
