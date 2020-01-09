@@ -11,6 +11,6 @@ _Why didn't you go for a Hello World?_ A Hello world needs a considerably large 
 
 _What's so special about this one then?_ It is an executable which does something visible on your Macbook Pro Retina 15" from Mid-2012 while boasting a file size of merely 75 bytes [sic]. Bytes, not Kilobytes. This can be made into the classic "Hello World" program but it is going to be much bigger in size.
 
-_How could you improve it?_ Maybe reset the machine by means of sending 0xFE to PS/2 keyboard port 0x60(?) 0x64(?). This has been discussed in the book "Windows Rootkits", from Hoglund and Butler. Unfortunately, with the proprietary HID solution of Macbook Pro keyboards I haven't seemed to be able to reset the machine yet. Using the PS/2 way would allow for omitting most of the machine code that is currently used. Another way might be to set the number of sections to 0. This hasn't been tried yet. 
+_How could you improve it?_ Maybe reset the machine by means of sending 0xFE to PS/2 keyboard port 0x60(?) 0x64(?). This has been discussed in the book "Windows Rootkits", from Hoglund and Butler. Unfortunately, with the proprietary HID solution of Macbook Pro keyboards I haven't seemed to be able to reset the machine yet. Using the PS/2 way would allow for omitting most of the machine code that is currently used. Another way might be to set the number of sections to 0. This wasn't tried yet. 
 
 #efi #uefi #bootloader #bootx64 #terse #executable #intel #bios #boot #bds #helloworld #reset #tinype
