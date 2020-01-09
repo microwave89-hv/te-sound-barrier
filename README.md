@@ -5,7 +5,7 @@ See http://archive.is/w01DO for the general idea of shrinking down a (P)E until 
 Largest difference is execution of the app in the EFI environment as opposed to the Win32 environment.
 Another point is the use of the small TE header as opposed to the PE header.
 
-_What is it?_ It is an attempt to gain a basic understanding of how one can write smaller EFI apps by leveraging the less-known "Terse Executable" (TE) format.
+_What is it?_ It was an attempt to leverage the less-known "Terse Executable" (TE) format for writing normal EFI apps.
 TE files are PE's with an adapted header, the size of which has strongly been reduced, by stripping fields that do not apply to an EFI environment. There is for instance no import or export directory in an EFI app as there isn't such thing as dynamic linking. TE files are readily used in both the SEC and PEI phases of FW execution.
 
 _How use i this???? i can haz halp plz!!!!!_ See https://github.com/microwave89-hv/min-hello-world, and use Google if you cannot make sense out of the term "EFI Application". Attempting to simply launch this file from the EDK EfiShell will likely result in an error. The "te-sound-barrier" app has executed successfully only if the Macbook Pro did shut down after selecting the correct drive in the BDS screen.
