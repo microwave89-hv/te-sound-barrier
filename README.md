@@ -12,7 +12,7 @@ _How use i this???? i can haz halp plz!!!!!_ See https://github.com/microwave89-
 
 _Where did you test this?_ It was tested on a Macbook Pro Retina 15" using the EFI environment provided by the MBP101.00F6.B00 FW.
 
-_Why didn't you go for a Hello World?_ A Hello world needs a considerably large piece of code just to switch back to text mode from the graphics mode the Apple BDS screen runs in. Without switching to text mode the "Hello World" string won't going to be visible. At that point, "Hello World!" hasn't even been put out yet which will take yet another dozens of bytes to accomplish.
+_Why didn't you go for a Hello World?_ A Hello world needs a considerably large piece of code just to switch back to text mode from graphics mode, the Apple BDS screen runs in. Without switching to text mode the "Hello World" string won't going to be visible. At that point, "Hello World!" hasn't even been put out yet which will take yet another dozens of bytes to accomplish.
 
 _What's so special about this one then?_ It is an executable which does something visible on your Macbook Pro Retina 15" from Mid-2012 while boasting a file size of merely 75 bytes. This could be made into the classic "Hello World" program but then it is going to be much bigger in size.
 
