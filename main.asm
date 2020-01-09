@@ -12,10 +12,9 @@
  ; See the License for the specific language governing permissions and
  ; limitations under the License.
 
-
- ; Derived from actual TE file in SPI ROM dump starting at 0x7ff33c
- ; with help of the Intel® Platform Innovation Framework for EFI Pre-EFI Initialization Core Interface Specification (PEI CIS) 0.91
- ; and the Extensible Firmware Interface Specification V 1.10
+ ; Derived from actual TE file in SPI ROM dump of MBP101.00F6.B00 starting at offset 0x7ff33c,
+ ; with help of the Intel® Platform Innovation Framework for EFI Pre-EFI Initialization Core Interface Specification (PEI CIS) 0.91,
+ ; and the Extensible Firmware Interface Specification V 1.10.
  ; Thanks go to @Intel for creating and publishing those specifications.
 
 BITS 64
