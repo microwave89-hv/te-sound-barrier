@@ -30,7 +30,7 @@ Machine: 				dw IMAGE_FILE_MACHINE_AMD64 		; 64 86
 NumberOfSections: 			db 0 					; 00			  ; Don't interpret a section header any longer, this permits one finally
 													  ; to put code in all of the fields of the former section header.
 Subsystem: 				db IMAGE_SUBSYSTEM_EFI_APPLICATION 	; 0A
-StrippedSize: 				dw 0x2d5 				; d5 02 		  ; Needed to adjust address of AddressOfEntryPoint to AddressOfEntryPoint
+StrippedSize: 				dw 0x2d9 				; d9 02 		  ; Needed to adjust address of AddressOfEntryPoint to AddressOfEntryPoint
 AddressOfEntryPoint: 			mov    ecx, 2
 	nop
 	jmp DataDirectory0_Va 							; EB 08 		  ; Skip non-executable ImageBase
@@ -44,4 +44,4 @@ DataDirectory1_Va:
 	pop rax 								; 31 D2			  ; arg2 = EFI_SUCCESS;
 	call [rax + 0x68]
 	
-; 56 5A 64 86 00 0A D5 02 B9 02 00 00 00 90 EB 08 FF FF FF FF FF FF FF FF FF 72 58 BA 00 00 00 00 58 FF 50 68
+; 56 5A 64 86 00 0A D9 02 B9 02 00 00 00 90 EB 08 FF FF FF FF FF FF FF FF FF 72 58 BA 00 00 00 00 58 FF 50 68
