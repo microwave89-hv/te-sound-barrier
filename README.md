@@ -1,7 +1,8 @@
-# ~~75~~ 57 Bytes [sic] x86-64 EFI App
-Possibly the smallest EFI application which can shut down your platform upon execution.
+# ~~57~~ 49 Bytes [sic] x86-64 EFI App
+Very small EFI application which can shut down your platform upon execution.
 See http://archive.is/w01DO and http://www.muppetlabs.com/~breadbox/software/tiny/teensy.html for the general idea of shrinking down a (P)E until the sound barrier is reached.
 
+Also see blabla
 Largest difference is execution of the app in the EFI environment as opposed to the Win32 environment.
 Another point is the use of the small TE header as opposed to the PE header.
 
