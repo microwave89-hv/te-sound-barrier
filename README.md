@@ -6,7 +6,7 @@ Key updates to "nextlevel"-branch source include utilizing the StrippedSize fiel
 This allowed for throwing away the highly ineffective bridge jumps.
 Another key difference is splitting the "pRuntimeServices = pEfiSystemTable->RuntimeServices" code into two parts finally allowing placement in a dword field.
 
-I herewith openly challenge you to come up with a smaller EFI application which still does something fundamentally different from 
+__I herewith openly challenge you to come up with a smaller EFI application which still does something fundamentally different from__
 
 - rebooting the machine
 - returning control to the OS
