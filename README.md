@@ -12,4 +12,6 @@ __I herewith openly challenge you to come up with a smaller EFI application whic
 - returning control to the OS
 - hanging
 
+Your constraints are that you must somehow show your app executing (likewise to the machine shutdown) or having been executing (leaving something in the flash?, or in the memory?).
+
 #efi #uefi #application #app #bootloader #bootx64 #terse #executable #intel #bios #boot #bds #helloworld #shutdown #world #record #tinypechallenge #x64
