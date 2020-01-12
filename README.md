@@ -22,5 +22,6 @@ Your constraints are
 
 - Your app must somehow prove before the next reboot that it has gained control over the program counter. That means you cannot manually edit your app between executions. You might for example leave a byte in the flash or in the memory.
 - It must be a standalone EFI app able to run without bootloader, or EFI shell. It can, however, run in the version xyz of QEMU, bochs, VirtualBox, or a PC or Mac.
+- It should be reliable as long as the ROM version doesn't change. This means you are strongly advised against mapping the app into memory of unknown use unless you can prove somehow that with your ROM and (virtual) HW setup this memory is never ever going to be in use.
 
 #efi #uefi #application #app #bootloader #bootx64 #terse #executable #intel #macbook #bios #boot #bds #helloworld #shutdown #world #record #tinypechallenge #x64
