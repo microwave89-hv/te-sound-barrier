@@ -15,6 +15,9 @@ __I herewith openly challenge you to come up with a smaller EFI application whic
 Reason is these are achievable even if your app doesn't even gain control or it somehow crashes the TE loader.
 A platform shutdown without gaining control is much much more unlikely.
 
-Your constraints are that you must somehow show your app executing (likewise to the machine shutdown) or having been executing (leaving something in the flash?, or in the memory?).
+Your constraints are
+
+- Your app must before the next reboot somehow prove that it has gained control over the program counter. That means you cannot manually edit your app between executions. You might for example leave a byte in the flash or in the memory.
+- It must be a standalone EFI app able to run without bootloader, or EFI shell. It can, however, run in the version xyz of QEMU, bochs, VirtualBox, or a PC or Mac.
 
 #efi #uefi #application #app #bootloader #bootx64 #terse #executable #intel #bios #boot #bds #helloworld #shutdown #world #record #tinypechallenge #x64
