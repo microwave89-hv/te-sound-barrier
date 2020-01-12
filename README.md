@@ -8,9 +8,12 @@ Another key difference is splitting the "pRuntimeServices = pEfiSystemTable->Run
 
 __I herewith openly challenge you to come up with a smaller EFI application which still does something fundamentally different from__
 
-- rebooting the machine
+- immediately rebooting the machine
 - returning control to the OS
 - hanging
+
+Reason is these are achievable even if your app doesn't even gain control or it somehow crashes the TE loader.
+A platform shutdown without gaining control is much much more unlikely.
 
 Your constraints are that you must somehow show your app executing (likewise to the machine shutdown) or having been executing (leaving something in the flash?, or in the memory?).
 
