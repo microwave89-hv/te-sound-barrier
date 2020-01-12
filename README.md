@@ -1,22 +1,9 @@
 # ~~57~~ 49 Bytes [sic] x86-64 EFI App
-Very small EFI application which can shut down your platform upon execution.
-See http://archive.is/w01DO and http://www.muppetlabs.com/~breadbox/software/tiny/teensy.html for the general idea of shrinking down a (P)E until the sound barrier is reached.
+Very small EFI application which can shutdown your platform upon execution.
 
-Also see blabla
-Largest difference is execution of the app in the EFI environment as opposed to the Win32 environment.
-Another point is the use of the small TE header as opposed to the PE header.
+Also see https://github.com/microwave89-hv/te-sound-barrier/tree/master for general information and explanation.
+Key difference to the source code on the master branch is omitting the initialization of arguments which should not be interpreted by the platform FW in the first place. Owing to some constraints of code order being relaxed some instructions could be replaced by shorter ones and they could be arranged slightly more effective.
 
-_What is it?_ It was an attempt to leverage the less-known "Terse Executable" (TE) format for writing normal EFI apps.
-TE files are PE's with an adapted header, the size of which has strongly been reduced, by stripping fields that do not apply to an EFI environment. There is for instance no import or export directory in an EFI app as there isn't such thing as dynamic linking. TE files are readily used in both the SEC and PEI phases of FW execution.
+By only fiddling with 2 instead of 4 arguments the shutdown code has been greatly simplified. As of such it is highly unlikely that implementing the platform shutdown by yourself is going to yield code that is any shorter.
 
-_How use i this???? i can haz halp plz!!!!!_ See https://github.com/microwave89-hv/min-hello-world, and use Google if you cannot make sense out of the term "EFI Application". Attempting to simply launch this file from the EDK EfiShell will likely result in an error. The "te-sound-barrier" app has executed successfully only if the Macbook Pro did shut down after selecting the correct drive in the BDS screen.
-
-_Where did you test this?_ It was tested on a Macbook Pro Retina 15" using the EFI environment provided by the MBP101.00F6.B00 FW.
-
-_Why didn't you go for a Hello World?_ A Hello world needs a considerably large piece of code just to switch back to text mode from graphics mode, the Apple BDS screen runs in. Without switching to text mode the "Hello World" string won't going to be visible. At that point, "Hello World!" hasn't even been put out yet which will take yet another dozens of bytes to accomplish.
-
-_What's so special about this one then?_ It is an executable which does something visible on your Macbook Pro Retina 15" from Mid-2012 while boasting a file size of ~~merely~~ an insane ~~75~~ 57 bytes. This could be made into the classic "Hello World" program but then it is going to be much bigger in size.
-
-_How could you improve it?_ Maybe reset the machine by means of sending 0xFE to PS/2 keyboard port 0x60(?) 0x64(?). This has been discussed in the book "Windows Rootkits", from Hoglund and Butler. Unfortunately, with the proprietary HID solution of Macbook Pro keyboards I haven't seemed to be able to reset the machine yet. Using the PS/2 way would allow for omitting most of the machine code that is currently used. ~~Another way might be to set the number of sections to 0. This wasn't tried yet~~.
-
-#efi #uefi #application #app #bootloader #bootx64 #terse #executable #intel #bios #boot #bds #helloworld #reset #tinypechallenge #x64
+#efi #uefi #application #app #bootloader #bootx64 #terse #executable #intel #bios #boot #bds #helloworld #shutdown #reset #tinypechallenge #x64
